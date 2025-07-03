@@ -1,0 +1,15 @@
+# Módulos locales de Node
+node_modules
+
+# Datos persistentes de Mongo
+mongo_data/
+
+# Archivos temporales o de sistema
+.DS_Store
+Thumbs.db
+
+.git
+.gitignore
+.env*
+*.md
+*.log

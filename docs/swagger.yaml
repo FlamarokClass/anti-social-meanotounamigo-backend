@@ -1,0 +1,787 @@
+
+openapi: 3.0.0
+info:
+  title: API de Red social
+  version: 1.0.0
+  description: Documentación para la API de la  Red social
+
+servers:
+  - url: http://localhost:3009
+    description: Servidor local de desarrollo
+tags: 
+  - name: Users
+    description: Todo sobre usuiaros
+  - name: Posts
+    description: Todo sobre los post
+  - name: Comments
+    description: Todo sobre los comentarios
+  - name: Tags
+    description: Todo sobre las etiquetas
+  - name: PostImages
+    description: Todo sobre las imágenes de los post
+paths:
+#Todo sobre el usuario
+  /user:
+    get:
+      tags:
+        - Users
+      summary: Obtener todos los usuarios
+      responses:
+        '200':
+          description: Lista de usuarios
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/User'
+    post:
+      tags:
+        - Users
+      summary: Crear un nuevo usuario
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/User'
+      responses:
+        '201':
+          description: Usuario creado exitosamente
+
+  /user/{id}:
+    get:
+      tags:
+        - Users
+      summary: Obtener un usuario por ID
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Usuario encontrado
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+        '404':
+          description: Usuario no encontrado
+
+    put:
+      tags:
+        - Users
+      summary: Actualizar un usuario por ID
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/User'
+      responses:
+        '200':
+          description: Usuario actualizado
+        '404':
+          description: Usuario no encontrado
+
+    delete:
+      tags:
+        - Users
+      summary: Eliminar un usuario por ID
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: string
+      responses:
+        '204':
+          description: Usuario eliminado
+        '404':
+          description: Usuario no encontrado
+  /user/{id}/following:
+    get:
+      tags:
+        - Users
+      summary: Obtener los seguidos del usuario por ID
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Seguidos encontrado
+          content:
+            application/json:
+              schema:
+              type: array
+              items:
+                $ref: '#/components/schemas/User'
+        '404':
+          description: Usuario no encontrado
+  /user/{id}/follow/{userToFollowId}:
+    post:
+      tags:
+        - Users
+      summary: Asigna como seguidor del usuario con userToFollowId a el usuario con id
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: integer
+        - in: path
+          name: userToFollowId
+          required: true
+          schema:
+            type: integer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/User'
+      responses:
+        '201':
+          description: Follow exitoso
+  /user/{id}/unfollow/{userToFollowId}:
+    delete:
+      tags:
+        - Users
+      summary: Eliminar al usuario con id como seguidor del usuario con userToFollowId
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: integer
+        - in: path
+          name: userToFollowId
+          required: true
+          schema:
+            type: integer
+      responses:
+        '204':
+          description: Unfollow exitoso
+        '404':
+          description: Usuario/s no encontrado
+  #Todo sobre el post
+  /post:
+    get:
+      tags:
+        - Posts
+      summary: Obtener todos los post
+      responses:
+        '200':
+          description: Lista de post
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Post'
+    post:
+      tags:
+        - Posts
+      summary: Crear un nuevo post
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Poste'
+      responses:
+        '201':
+          description: Usuario creado exitosamente
+  /post/{id}:
+    get:
+      tags:
+        - Posts
+      summary: Obtener un post por ID
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Post encontrado
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Post'
+        '404':
+          description: Post no encontrado
+    put:
+      tags:
+        - Posts
+      summary: Actualizar un post por ID
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Post'
+      responses:
+        '200':
+          description: Post actualizado
+        '404':
+          description: Post no encontrado
+
+    delete:
+      tags:
+        - Posts
+      summary: Eliminar un post por ID
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: string
+      responses:
+        '204':
+          description: Post eliminado
+        '404':
+          description: Post no encontrado
+  /post/{id}/full:
+    get:
+      tags:
+        - Posts
+      summary: Obtener el post por ID con toda su información completa.
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: string
+          description: ID del post
+      responses:
+        '200':
+          description: Post completo encontrado
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PostConTodo'
+        '404':
+          description: Post no encontrado
+  /post/{id}/images:
+    post:
+      tags:
+        - Posts
+      summary: Agregar imágenes a un post
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: string
+          description: ID del post al que se le agregan las imágenes
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                imagenes:
+                  type: array
+                  items:
+                    $ref: '#/components/schemas/PostImage'
+      responses:
+        '200':
+          description: Post actualizado con nuevas imágenes
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Post'
+        '404':
+          description: Post no encontrado
+    delete:
+      tags:
+        - Posts
+      summary: Eliminar una imagen embebida del post por su ID
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: string
+          description: ID del post
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                imageId:
+                  type: string
+                  description: ID de la imagen a eliminar
+              required:
+                - imageId
+      responses:
+        '200':
+          description: Imagen eliminada exitosamente
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Post'
+        '404':
+          description: Post o imagen no encontrada
+  /post/{postId}/tag:
+    post:
+      tags:
+        - Posts
+      summary: Agregar etiquetas a un post
+      parameters:
+        - in: path
+          name: postId
+          required: true
+          schema:
+            type: string
+          description: ID del post al que se le agregan las etiquetas
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                etiquetas:
+                  type: array
+                  items:
+                    type: string
+      responses:
+        '200':
+          description: Post actualizado con nuevas etiquetas
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Post'
+        '404':
+          description: Post no encontrado
+    delete:
+      tags:
+      - Posts
+      summary: Eliminar una etiqueta  del post por su ID
+      parameters:
+        - in: path
+          name: postd
+          required: true
+          schema:
+            type: string
+          description: ID del post
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                etiquetas:
+                  type: array
+                  items:
+                    type: string
+                  description: ID de las etiquetas a eliminar
+              required:
+                - etiquetas
+      responses:
+        '200':
+          description: Etiquetas eliminadas exitosamente
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Post'
+        '404':
+          description: Post o etiqueta no encontrada
+
+    #Todo sobre las imagenes del post
+  /post-image:
+    get:
+      tags:
+        - PostImages
+      summary: Obtener todas los imagenes de los post
+      responses:
+        '200':
+          description: Lista de imagenes
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/PostImage'
+    post:
+      tags:
+        - PostImages
+      summary: Crear una nueva imagen
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PostImage'
+      responses:
+        '201':
+          description: Usuario creado exitosamente 
+  /post-image/{id}:
+    get:
+      tags:
+        - PostImages
+      summary: Obtener una imagen por ID
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Imagen encontrada
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PostImage'
+        '404':
+          description: Imagen no encontrada
+    put:
+      tags:
+        - PostImages
+      summary: Actualizar una imagen por ID
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PostImage'
+      responses:
+        '200':
+          description: Imagen actualizada
+        '404':
+          description: Imagen no encontrada
+    delete:
+      tags:
+        - PostImages
+      summary: Eliminar una imagen por ID
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: string
+      responses:
+        '204':
+          description: Imagen eliminada
+        '404':
+          description: Imagen no encontrada
+  #Todo sobre los comentarios de un post
+  /comment:
+    get:
+      tags:
+        - Comments
+      summary: Obtener todas los comentarios de los post
+      responses:
+        '200':
+          description: Lista de commentarios
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Comment'
+    post:
+      tags:
+        - Comments
+      summary: Crear un nuevo comentario
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/User'
+      responses:
+        '201':
+          description: Comenatrio creado exitosamente
+
+  /comment/{id}:
+    get:
+      tags:
+        - Comments
+      summary: Obtener un comentario por ID
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Comentario encontrado
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Comment'
+        '404':
+          description: Comentario no encontrado
+    put:
+      tags:
+        - Comments
+      summary: Actualizar un comentario por ID
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Comment'
+      responses:
+        '200':
+          description: Comentario actualizado
+        '404':
+          description: Comentario no encontrado
+    delete:
+      tags:
+        - Comments
+      summary: Eliminar un comentario por ID
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: string
+      responses:
+        '204':
+          description: Comentario eliminado
+        '404':
+          description: Comentario no encontrado
+  #Todo sobre las etiquetas
+  /tag:
+    get:
+      tags:
+        - Tags
+      summary: Obtener todas las etiquetas
+      responses:
+        '200':
+          description: Lista de etiquetas
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Tag'
+    post:
+      tags:
+        - Tags
+      summary: Crear una nueva etiqueta
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Tag'
+      responses:
+        '201':
+          description: Etiqueta creada exitosamente
+  /tag/{id}:
+    get:
+      tags:
+        - Tags
+      summary: Obtener una etiqueta por ID
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Etiqueta encontrada
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Tag'
+        '404':
+          description: Imagen no encontrada
+    put:
+      tags:
+        - Tags
+      summary: Actualizar una etiqueta por ID
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Tag'
+      responses:
+        '200':
+          description: Etiqueta actualizada
+        '404':
+          description: Etiqueta no encontrada
+    delete:
+      tags:
+        - Tags
+      summary: Eliminar una etiqueta por ID
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: string
+      responses:
+        '204':
+          description: Etiqueta eliminada
+        '404':
+          description: Etiqueta no encontrada
+  /tag/{tagId}/post:
+    get:
+      tags:
+        - Tags
+      summary: Obtener todos los post con el ID de la etiqueta
+      parameters:
+        - in: path
+          name: tagId
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Lista de posts
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Post'
+        '404':
+          description: Etiqueta no encontrada
+
+
+components:
+  schemas:
+    User:
+      type: object
+      properties:
+        nickname:
+          type: string
+          example: usuario22
+        email:
+          type: string
+          example: usuario@example.com
+        followers:
+          type: array
+          items:
+            type: string
+            description: ID de usuario
+        following:
+          type: array
+          items:
+            type: string
+            description: ID de usuario
+    Post:
+      type: object
+      properties:
+        user:
+          type: string
+        fecha:
+          type: string
+          format: date
+          example: '2025-02-10'
+        descripcion:
+          type: string
+          example: Este es un nuevo post
+        imagenes:
+          type: array
+          items:
+            $ref: '#components/schemas/PostImage'
+          description: Referencias a imagenes asociadas al post (opcional)
+        etiquetas:
+          type: array
+          items:
+            type: string
+            descriptiom: ID de etiqueta
+      PostConTodo:
+        type: object
+      properties:
+        _id:
+          type: string
+        descripcion:
+          type: string
+        fecha:
+          type: string
+          format: date
+        imagenes:
+          type: array
+          items:
+            $ref: '#/components/schemas/PostImage'
+        usuer:
+          $ref: '#/components/schemas/User'
+        etiquetas:
+          type: array
+          items:
+            $ref: '#/components/schemas/Tag'
+        comentarios:
+          type: array
+          items:
+            $ref: '#/components/schemas/Comment'
+    PostImage:
+      type: object
+      properties:
+        url:
+          type: string
+          format: uri
+          example: https://example.com/foto.jpg
+    Comment:
+      type: object
+      properties:
+        user:
+          type: string
+          description: ID del usuario
+        post:
+          type: string
+          description: Id del post
+        contenido:
+          type: string
+          example: Esto es un comentario
+        fecha:
+          type: string
+          format: date
+          example: '2025-05-10'
+    Tag:
+      type: object
+      properties:
+        nombre:
+          type: string
+          example: vacaciones

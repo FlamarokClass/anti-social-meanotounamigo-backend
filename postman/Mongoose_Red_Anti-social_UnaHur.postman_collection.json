@@ -1,0 +1,837 @@
+{
+	"info": {
+		"_postman_id": "b9fda116-70c9-45fb-a69b-f504defe239c",
+		"name": "Mongoose_Red_Anti-social_UnaHur",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "18699845"
+	},
+	"item": [
+		{
+			"name": "User",
+			"item": [
+				{
+					"name": "createUser",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"nickname\": \"caraculis\",\r\n    \"email\": \"caraculis@gmail.com\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:3009/user",
+							"host": [
+								"localhost"
+							],
+							"port": "3009",
+							"path": [
+								"user"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getUsers",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:3009/user",
+							"host": [
+								"localhost"
+							],
+							"port": "3009",
+							"path": [
+								"user"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getUserById",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:3009/user/6854475fc59a3353fae12fde",
+							"host": [
+								"localhost"
+							],
+							"port": "3009",
+							"path": [
+								"user",
+								"6854475fc59a3353fae12fde"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "updateUserById",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"nickname\": \"tina\",\r\n    \"email\": \"tina@gmail.com\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:3009/user/68562cb5222d2b1716799280",
+							"host": [
+								"localhost"
+							],
+							"port": "3009",
+							"path": [
+								"user",
+								"68562cb5222d2b1716799280"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "deleteUserById",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "localhost:3009/user/6854475fc59a3353fae12fde",
+							"host": [
+								"localhost"
+							],
+							"port": "3009",
+							"path": [
+								"user",
+								"6854475fc59a3353fae12fde"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Tag",
+			"item": [
+				{
+					"name": "createTag",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"nombre\": \"#otraNocheSinDormir\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:3009/tag",
+							"host": [
+								"localhost"
+							],
+							"port": "3009",
+							"path": [
+								"tag"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getTags",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:3009/tag",
+							"host": [
+								"localhost"
+							],
+							"port": "3009",
+							"path": [
+								"tag"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getTagById",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:3009/tag/68569a9add0bde2ff07d5253",
+							"host": [
+								"localhost"
+							],
+							"port": "3009",
+							"path": [
+								"tag",
+								"68569a9add0bde2ff07d5253"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "updateTagById",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"nombre\": \"#Loj\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:3009/tag/68569a9add0bde2ff07d5253",
+							"host": [
+								"localhost"
+							],
+							"port": "3009",
+							"path": [
+								"tag",
+								"68569a9add0bde2ff07d5253"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "deleteTagById",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"nombre\": \"#Boca\"\r\n}"
+						},
+						"url": {
+							"raw": "localhost:3009/tag/68569a9add0bde2ff07d5253",
+							"host": [
+								"localhost"
+							],
+							"port": "3009",
+							"path": [
+								"tag",
+								"68569a9add0bde2ff07d5253"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getPostsByTagId",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:3009/tag/68542acc7be356cf7975d0fa/post",
+							"host": [
+								"localhost"
+							],
+							"port": "3009",
+							"path": [
+								"tag",
+								"68542acc7be356cf7975d0fa",
+								"post"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Post",
+			"item": [
+				{
+					"name": "createPost",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"fecha\": \"2022-12-15\",\r\n    \"descripcion\": \"Todavia sigo\",\r\n    \"imagenes\": [],\r\n    \"etiquetas\": [],\r\n    \"user\": \"6853e91cca73a679fef58e55\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:3009/post",
+							"host": [
+								"localhost"
+							],
+							"port": "3009",
+							"path": [
+								"post"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getPosts",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:3009/post",
+							"host": [
+								"localhost"
+							],
+							"port": "3009",
+							"path": [
+								"post"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getPostsById",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:3009/post/6856bcd9ca8cf174a04d1ce1",
+							"host": [
+								"localhost"
+							],
+							"port": "3009",
+							"path": [
+								"post",
+								"6856bcd9ca8cf174a04d1ce1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "updatePost",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"descripcion\": \"Posta de nuevo....\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:3009/post/6856bcd9ca8cf174a04d1ce1",
+							"host": [
+								"localhost"
+							],
+							"port": "3009",
+							"path": [
+								"post",
+								"6856bcd9ca8cf174a04d1ce1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "assignTagToPost",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"tagId\": \"68542ab77be356cf7975d0f8\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:3009/post/6854536b52d008f11b380d5b/tag",
+							"host": [
+								"localhost"
+							],
+							"port": "3009",
+							"path": [
+								"post",
+								"6854536b52d008f11b380d5b",
+								"tag"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "deleteTagFromPost",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "localhost:3009/post/685453ce52d008f11b380d5d/tag/6854470ec59a3353fae12fd7",
+							"host": [
+								"localhost"
+							],
+							"port": "3009",
+							"path": [
+								"post",
+								"685453ce52d008f11b380d5d",
+								"tag",
+								"6854470ec59a3353fae12fd7"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getPostWithAllInfo",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "localhost:3009/post/6857015597918491f2fba1b0/full",
+							"host": [
+								"localhost"
+							],
+							"port": "3009",
+							"path": [
+								"post",
+								"6857015597918491f2fba1b0",
+								"full"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "assignImagesToPost",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"imageIds\": [\"imgId1\", \"imgId2\"]\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:3009/post/6857015597918491f2fba1b0/images",
+							"host": [
+								"localhost"
+							],
+							"port": "3009",
+							"path": [
+								"post",
+								"6857015597918491f2fba1b0",
+								"images"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "deleteImagesToPost",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"imageIds\": [\"imgId2\"]\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:3009/post/6857015597918491f2fba1b0/images",
+							"host": [
+								"localhost"
+							],
+							"port": "3009",
+							"path": [
+								"post",
+								"6857015597918491f2fba1b0",
+								"images"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "deletePostByIdCascade",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "localhost:3009/post/6857015597918491f2fba1b0",
+							"host": [
+								"localhost"
+							],
+							"port": "3009",
+							"path": [
+								"post",
+								"6857015597918491f2fba1b0"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Comment",
+			"item": [
+				{
+					"name": "createComment",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"contenido\": \"¡Facu, descansá un poco!\",\r\n  \"fecha\": \"2025-02-05\",\r\n  \"post\": \"6857015597918491f2fba1b0\",\r\n  \"user\": \"6854475fc59a3353fae12fde\"\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:3009/comment",
+							"host": [
+								"localhost"
+							],
+							"port": "3009",
+							"path": [
+								"comment"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getComments",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"nickname\": \"Squarejugger\",\r\n    \"email\": \"squarejugger@gmail.com\"\r\n}"
+						},
+						"url": {
+							"raw": "localhost:3009/comment",
+							"host": [
+								"localhost"
+							],
+							"port": "3009",
+							"path": [
+								"comment"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getCommentsById",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"nickname\": \"Squarejugger\",\r\n    \"email\": \"squarejugger@gmail.com\"\r\n}"
+						},
+						"url": {
+							"raw": "localhost:3009/comment/6856897734e7b649615fa7fb",
+							"host": [
+								"localhost"
+							],
+							"port": "3009",
+							"path": [
+								"comment",
+								"6856897734e7b649615fa7fb"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "updateCommentById",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"contenido\": \"Mentira es horrible tu post andá a dormir\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:3009/comment/6856897734e7b649615fa7fb",
+							"host": [
+								"localhost"
+							],
+							"port": "3009",
+							"path": [
+								"comment",
+								"6856897734e7b649615fa7fb"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "deleteCommenttById",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"contenido\": \"Que buen post\",\r\n    \"fecha\": \"2020-02-05\",\r\n    \"post\": \"685453ce52d008f11b380d5d\",\r\n    \"user\": \"6853e91cca73a679fef58e55\"\r\n}"
+						},
+						"url": {
+							"raw": "localhost:3009/comment/68568fdeb5fb4437f054cadd",
+							"host": [
+								"localhost"
+							],
+							"port": "3009",
+							"path": [
+								"comment",
+								"68568fdeb5fb4437f054cadd"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Post-Image",
+			"item": [
+				{
+					"name": "createPostImage",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"url\": \"https://cdn.example.com/img/perro-trabajando34.jpg\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:3009/post-image",
+							"host": [
+								"localhost"
+							],
+							"port": "3009",
+							"path": [
+								"post-image"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getPostImages",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"url\": \"https://cdn.example.com/img/perro-trabajando34.jpg\"\r\n}"
+						},
+						"url": {
+							"raw": "localhost:3009/post-image",
+							"host": [
+								"localhost"
+							],
+							"port": "3009",
+							"path": [
+								"post-image"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getPostImagesById",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"url\": \"https://cdn.example.com/img/perro-trabajando34.jpg\"\r\n}"
+						},
+						"url": {
+							"raw": "localhost:3009/post-image/6856e62d7394f37485c9c21b",
+							"host": [
+								"localhost"
+							],
+							"port": "3009",
+							"path": [
+								"post-image",
+								"6856e62d7394f37485c9c21b"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "updatePostImage",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"url\": \"https://cdn.example.com/img/michi-trabajando34.jpg\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:3009/post-image/6856e62d7394f37485c9c21b",
+							"host": [
+								"localhost"
+							],
+							"port": "3009",
+							"path": [
+								"post-image",
+								"6856e62d7394f37485c9c21b"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "deletePostImage",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"url\": \"https://cdn.example.com/img/perro-trabajando34.jpg\"\r\n}"
+						},
+						"url": {
+							"raw": "localhost:3009/post-image/6856e6347394f37485c9c21d",
+							"host": [
+								"localhost"
+							],
+							"port": "3009",
+							"path": [
+								"post-image",
+								"6856e6347394f37485c9c21d"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
