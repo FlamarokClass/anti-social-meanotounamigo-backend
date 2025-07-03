@@ -4,7 +4,10 @@ const redisClient = require("../redis/redis");
 const ttl = parseInt(process.env.REDIS_TTL) || 60;
 
 const getPosts = async (_, res) => {
-  const posts = await Post.find({});
+  const posts = await Post.find({}).populate("etiquetas", "nombre").lean();
+  for (const post of posts) {
+  post.comentariosVisibles = await Comment.countDocuments({ post: post._id });
+  }
   await redisClient.set("posts:all", JSON.stringify(posts), { EX: ttl });
   res.status(200).json(posts);
 };
@@ -14,7 +17,7 @@ const getPostWithAllInfo = async (req, res) => {
   const comentarios = await Comment.find({
     post: req.post._id,
     fecha: { $gte: seisMesesAtras() }
-  }).populate("user", "nombre");
+  }).populate("user", "nickname");
 
   await req.post.populate("user", "nombre email");
   await req.post.populate("etiquetas", "nombre");
