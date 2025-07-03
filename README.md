@@ -72,7 +72,6 @@ Si se desea cambiar el PORT o algun otro valor se puede modificar el archivo .en
 | GET   | /comment/:id              |200         |Obtener un comentario de un ID determinado
 | PUT   | /comment/:id              |200         |Modificar un comentario de un ID determinado 
 | DELETE| /comment/:id              |200         |Eliminar un comentario de un ID determinado
-
 | GET   | /post                     |200         |Obtener todos los posteos
 | GET   | /post/:id                 |200         |Obtener un posteo de un ID determinado
 | GET   | /post/:id/full            |200         |Obtener el usuario que realizó el posteo
@@ -83,20 +82,17 @@ Si se desea cambiar el PORT o algun otro valor se puede modificar el archivo .en
 | DELETE| /post/:id/tag             |200         |Elimina una etiqueta de un post
 | POST  | /post/:id/images          |200         |Sube una imagen
 | DELETE| /post/:id/IMAGES          |200         |Elimina una imagen
-
 | GET   | /postImage                |200         |Obtener todas las imágenes
 | GET   | /postImage/:id            |200         |Obtener la imagen de un ID determinado
 | POST  | /postImage                |201         |Crea un nueva imagen
 | PUT   | /postImage/:id            |200         |Modificar un imagen de un ID determinado 
 | DELETE| /postImage/:id            |200         |Eliminar un imagen de un ID determinado
-
 | GET   | /tag                      |200         |Obtener todas las etiquetas
 | GET   | /tag/:tagId/post          |200         |Obtener la etiqueta de un posteo de un ID determinado
 | GET   | /tag/:id                  |200         |Obtener la etiqueta de un ID determinado
 | POST  | /tag                      |201         |Crear una etiqueta
 | PUT   | /tag/:id                  |200         |Modificar una etiqueta de un ID determinado 
 | DELETE| /tag/:id                  |200         |Eliminar una etiqueta de un ID determinado
-
 | GET   | /user                     |200         |Obtener todos los usuarios
 | GET   | /user/:id                 |200         |Obtener un usuario de un ID determinado
 | POST  | /user                     |201         |Crear un usuario
