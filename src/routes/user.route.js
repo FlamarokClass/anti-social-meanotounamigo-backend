@@ -13,6 +13,7 @@ router.post("/", genericMiddleware.schemaValidator(userSchema), userController.c
 router.put("/:id", deleteCache, genericMiddleware.validId(), genericMiddleware.existsModelById(User, "user"), genericMiddleware.schemaValidator(userSchema), userController.updateUserById);
 router.delete("/:id", deleteCache, genericMiddleware.validId(), genericMiddleware.existsModelById(User, "user"), userController.deleteUserById);
 
+router.get("/:id/post", checkCache, genericMiddleware.validId(), genericMiddleware.existsModelById(User), userController.getUserByIdWithPosts);
 
 // Un usuario puede manejar seguidores y seguidos
 router.post("/:id/follow/:userToFollowId",genericMiddleware.validId,followerMiddleware.existsUser , followerMiddleware.existsUserToFollow, followerMiddleware.avoidAutoFollow, followerMiddleware.existsFollow,followerController.followUser);
