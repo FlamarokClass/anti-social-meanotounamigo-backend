@@ -115,6 +115,36 @@ const deleteImagesFromPost = async (req, res) => {
 };
 
 
+const getPostsByUser = async (req, res) => {
+  try {
+    const userId = req.user._id; 
+    const cacheKey = `posts:user:${userId}`;
+
+    // Verificar cache
+    const cachedData = await redisClient.get(cacheKey);
+    if (cachedData) {
+      return res.status(200).json(JSON.parse(cachedData));
+    }
+     const posts = await Post.find({ user: userId })
+      .sort({ fecha: -1 })
+      .populate("etiquetas", "nombre")
+      .populate("user", "nickname")
+      .populate("imagenes")
+      .lean();
+    await redisClient.set(cacheKey, JSON.stringify(posts), { EX: ttl });
+
+    res.status(200).json(posts);
+
+  } catch (error) {
+    console.error("Error:", error);
+    res.status(500).json({
+      success: false,
+      message: "Error interno del servidor",
+      error: error.message
+    });
+  }
+};
+
 module.exports = {
   getPosts,
   getPostWithAllInfo,
@@ -126,4 +156,5 @@ module.exports = {
   deleteTagFromPost,
   assignImagesToPost,
   deleteImagesFromPost,
+  getPostsByUser
 };

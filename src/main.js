@@ -26,7 +26,7 @@ const { userRoute, postRoute, postImageRoute, tagRoute, commentRoute } = require
 // Middleware para procesar JSON
 app.use(express.json());
 
-app.use(cors());
+app.use(cors({origin:'http://localhost:5173/'}));
 
 // Usa las rutas de post con el prefijo /post
 app.use('/post', postRoute);

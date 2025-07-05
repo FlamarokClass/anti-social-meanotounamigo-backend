@@ -10,6 +10,7 @@ const { checkCache, deleteCache } = require("../middlewares/redis.middleware")
 router.get('/', checkCache, postController.getPosts);
 router.get('/:id', checkCache, genericMiddleware.validId(), genericMiddleware.existsModelById(Post, "post"), postController.getPostById);
 router.get('/:id/full', checkCache, genericMiddleware.validId(), genericMiddleware.existsModelById(Post, "post"), postController.getPostWithAllInfo); 
+router.get('/user/:userId', checkCache ,postController.getPostsByUser);
 router.post("/", genericMiddleware.schemaValidator(postSchema), postController.createPost);
 router.put('/:id', deleteCache, genericMiddleware.validId(), genericMiddleware.existsModelById(Post, "post"), genericMiddleware.schemaValidator(postUpdateSchema), postController.updatePostById);
 router.delete('/:id', deleteCache, genericMiddleware.validId(), genericMiddleware.existsModelById(Post, "post"), postController.deletePostById);
