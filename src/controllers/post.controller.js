@@ -3,7 +3,7 @@ const { seisMesesAtras, deleteAssociatedPostData } = require("../utils");
 const redisClient = require("../redis/redis");
 const ttl = parseInt(process.env.REDIS_TTL) || 60;
 
-const getPosts = async (_, res) => {
+const getPostsByUserId = async (_, res) => {
   const posts = await Post.find({}).populate("etiquetas", "nombre").lean();
   for (const post of posts) {
   post.comentariosVisibles = await Comment.countDocuments({ post: post._id });
@@ -116,7 +116,7 @@ const deleteImagesFromPost = async (req, res) => {
 
 
 module.exports = {
-  getPosts,
+  getPostsByUserId,
   getPostWithAllInfo,
   getPostById,
   createPost,

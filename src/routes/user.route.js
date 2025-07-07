@@ -5,8 +5,9 @@ const { genericMiddleware, followerMiddleware} = require("../middlewares");
 const { userSchema} = require('../schemas');
 const { User } = require("../mongoSchemas");
 const { checkCache, deleteCache } = require("../middlewares/redis.middleware")
-
+//checkCache, genericMiddleware.validId(), genericMiddleware.existsModelById(User), 
 //CRUD
+router.get("/:id/post", checkCache, genericMiddleware.validId(), userController.getUserByIdWithPosts);
 router.get("/", checkCache, userController.getUsers);
 router.get("/:id", checkCache, genericMiddleware.validId(), genericMiddleware.existsModelById(User, "user"), userController.getUserById);
 router.post("/", genericMiddleware.schemaValidator(userSchema), userController.createUser);

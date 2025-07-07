@@ -1,9 +1,17 @@
-const { User } = require('../mongoSchemas')
+const { User, Post } = require('../mongoSchemas')
 const { deleteUserRelatedData } = require('../utils');
 const redisClient = require("../redis/redis");
 const ttl = parseInt(process.env.REDIS_TTL) || 60;
 
 //CRUD
+
+const getUserByIdWithPosts = async (req, res) => {
+    const id = req.params.id;
+    const usuario = await User.findById(id);
+    const posts = await Post.find({ user: usuario._id }).populate('etiquetas', 'nombre');
+    res.status(200).json(posts);
+};
+
 const getUsers = async (_, res) => {
   const users = await User.find({});
   await redisClient.set("users:all", JSON.stringify(users), { EX: ttl });
@@ -58,4 +66,5 @@ module.exports = {
     createUser, 
     updateUserById, 
     deleteUserById,
+    getUserByIdWithPosts,
 }
