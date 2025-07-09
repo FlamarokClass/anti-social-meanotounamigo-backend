@@ -4,7 +4,7 @@ const redisClient = require("../redis/redis");
 const ttl = parseInt(process.env.REDIS_TTL) || 60;
 
 const getPostsByUserId = async (_, res) => {
-  const posts = await Post.find({}).populate("etiquetas", "nombre").lean();
+  const posts = await Post.find({}).populate("etiquetas", "nombre").populate("imagenes", "url").lean();
   for (const post of posts) {
   post.comentariosVisibles = await Comment.countDocuments({ post: post._id });
   }
@@ -89,6 +89,7 @@ const deleteTagFromPost = async (req, res) => {
 };
 
 const assignImagesToPost = async (req, res) => {
+  console.log("Request body:", req.body);
   const { imageIds } = req.body;
   req.post.imagenes.push(...imageIds);
   await req.post.save();

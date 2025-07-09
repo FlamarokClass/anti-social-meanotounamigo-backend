@@ -1,6 +1,6 @@
 const Joi = require("joi");
 
-const imageAssignmentSchema = Joi.object({
+const imageAssigmentSchema = Joi.object({
   imageIds: Joi.array()
     .items(
       Joi.string()
@@ -16,4 +16,4 @@ const imageAssignmentSchema = Joi.object({
     })
 });
 
-module.exports = imageAssignmentSchema;
+module.exports = imageAssigmentSchema;

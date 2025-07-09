@@ -7,7 +7,7 @@ const ttl = parseInt(process.env.REDIS_TTL) || 60;
 const getUserByIdWithPosts = async (req, res) => {
     const id = req.params.id;
     const usuario = await User.findById(id);
-    const posts = await Post.find({ user: usuario._id }).populate('etiquetas', 'nombre');
+    const posts = await Post.find({ user: usuario._id }).populate('etiquetas', 'nombre').populate('imagenes', 'url');;
     res.status(200).json(posts);
 };
 
