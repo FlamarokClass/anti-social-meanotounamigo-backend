@@ -1,5 +1,6 @@
 const { PostImage, Post } = require('../mongoSchemas');
 const redisClient = require("../redis/redis");
+const { deleteFileByUrl } = require('../utils');
 const ttl = parseInt(process.env.REDIS_TTL) || 60;
 
 const getPostImages = async (_, res) => {
@@ -15,40 +16,54 @@ const getPostImageById = async (req, res) => {
 };
 
 const createPostImage = async (req, res) => {
-  const newImage = await PostImage.create({ url: req.body.url });
-  await redisClient.del("postImages:all");
-  res.status(201).json({ message: "Imagen creada con éxito", image: newImage });
+  const url = `${req.protocol}://${req.get('host')}/uploads/${req.file.filename}`;
+  const newImage = await PostImage.create({ url });
+  await redisClient.del('postImages:all');
+  res.status(201).json({
+    message: 'Imagen creada con éxito',
+    image: newImage
+  });
 };
 
 const updatePostImageById = async (req, res) => {
-  const { url } = req.body;
-  const postImage = req.postImage;
-  postImage.url = url;
-  await postImage.save();
+  const image       = req.postImage;
+    const oldUrl      = image.url;
+    const newUrl      = `${req.protocol}://${req.get('host')}/uploads/${req.file.filename}`;
 
-  await redisClient.del("postImages:all");
-  await redisClient.set(`postImage:${postImage._id}`, JSON.stringify(postImage), { EX: ttl });
+    image.url = newUrl;
+    await image.save();
 
-  res.status(200).json({ message: 'La imagen fue actualizada' });
+    await deleteFileByUrl(oldUrl);
+    await redisClient.del('postImages:all');
+    await redisClient.del(`postImage:${image._id}`);
+
+    return res.status(200).json({
+      message: 'Imagen actualizada con éxito',
+      image
+    });
 };
 
-const deletePostImageById = async (req, res) => {
-  const imageId = req.postImage._id;
-  // Buscar post que tenga la imagen
-  const post = await Post.findOne({ imagenes: imageId });
-  if (post) {
-    post.imagenes.pull(imageId); // elimina el ID del array
-    await post.save();
 
-    await redisClient.del(`post:${post._id}`);
-    await redisClient.del(`post:full:${post._id}`);
-  }
-  // Eliminar la imagen
-  await req.postImage.deleteOne();
-  // Limpiar caché de imágenes
-  await redisClient.del("postImages:all");
-  await redisClient.del(`postImage:${imageId}`);
-  res.status(200).json({ message: 'Imagen eliminada y desvinculada correctamente del post' });
+const deletePostImageById = async (req, res) => {
+  const image   = req.postImage;
+    const imageId = image._id;
+    const oldUrl  = image.url;
+
+    await Post.updateMany(
+      { imagenes: imageId },
+      { $pull: { imagenes: imageId } }
+    );
+
+    await image.deleteOne();
+    await deleteFileByUrl(oldUrl);
+
+    await redisClient.del('postImages:all');
+    await redisClient.del(`postImage:${imageId}`);
+    await redisClient.del('posts:all');
+
+    return res.status(200).json({
+      message: 'Imagen eliminada y desvinculada correctamente'
+    });
 };
 
 module.exports = {
@@ -56,5 +71,5 @@ module.exports = {
   getPostImageById,
   createPostImage,
   updatePostImageById,
-  deletePostImageById,
+  deletePostImageById
 };

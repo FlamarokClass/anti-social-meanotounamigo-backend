@@ -1,4 +1,5 @@
-const { Post } = require('../mongoSchemas');
+const { Post, PostImage } = require('../mongoSchemas');
+const mongoose = require('mongoose');
 
 const preventDuplicateImages = async (req, res, next) => {
   const newIds = req.body.imageIds.map(id => id.toString());
@@ -42,4 +43,22 @@ const preventImageReuseAcrossPosts = async (req, res, next) => {
   next();
 };
 
-module.exports = {preventDuplicateImages, requireExistingImage, preventImageReuseAcrossPosts };
+const loadPostImage = async (req, res, next) => {
+  const { id } = req.params;
+  if (!mongoose.Types.ObjectId.isValid(id)) {
+    return res.status(400).json({ message: 'ID inválido' });
+  }
+
+  try {
+    const img = await PostImage.findById(id);
+    if (!img) {
+      return res.status(404).json({ message: 'Imagen no encontrada' });
+    }
+    req.postImage = img;
+    next();
+  } catch (err) {
+    next(err);
+  }
+};
+
+module.exports = {preventDuplicateImages, requireExistingImage, preventImageReuseAcrossPosts, loadPostImage };

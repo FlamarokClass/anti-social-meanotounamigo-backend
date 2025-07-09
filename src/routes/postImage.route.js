@@ -1,16 +1,13 @@
 const { Router } = require('express');
 const router = Router();
 const { postImageController } = require('../controllers');
-const { genericMiddleware } = require('../middlewares');
-const { postImageSchema } = require('../schemas');
-const { PostImage } = require('../mongoSchemas');
-const { checkCache, deleteCache } = require("../middlewares/redis.middleware")
+const { genericMiddleware, upload, postImageMiddleware, requireFile } = require('../middlewares');
+const { checkCache, deleteCache } = require('../middlewares/redis.middleware');
 
-// CRUD
 router.get('/', checkCache, postImageController.getPostImages);
-router.get('/:id', checkCache, genericMiddleware.validId(), genericMiddleware.existsModelById(PostImage, "postImage"), postImageController.getPostImageById);
-router.post('/', genericMiddleware.schemaValidator(postImageSchema), postImageController.createPostImage);
-router.put('/:id', deleteCache, genericMiddleware.validId(), genericMiddleware.existsModelById(PostImage, "postImage"), genericMiddleware.schemaValidator(postImageSchema), postImageController.updatePostImageById);
-router.delete('/:id', deleteCache, genericMiddleware.validId(), genericMiddleware.existsModelById(PostImage, "postImage"), postImageController.deletePostImageById);
+router.get('/:id', genericMiddleware.validId(), postImageMiddleware.loadPostImage, checkCache, postImageController.getPostImageById);
+router.post('/', upload.single('image'), requireFile('image'), deleteCache, postImageController.createPostImage);
+router.put('/:id', genericMiddleware.validId(), postImageMiddleware.loadPostImage, upload.single('image'), requireFile('image'), deleteCache, postImageController.updatePostImageById);
+router.delete('/:id', genericMiddleware.validId(), postImageMiddleware.loadPostImage, deleteCache, postImageController.deletePostImageById);
 
 module.exports = router;

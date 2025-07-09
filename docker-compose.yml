@@ -62,6 +62,7 @@ services:
       REDIS_TTL: ${REDIS_TTL}
     volumes:
       - .:/usr/src/app
+      - ./uploads:/usr/src/app/uploads
     working_dir: /usr/src/app
     depends_on:
       - mongo

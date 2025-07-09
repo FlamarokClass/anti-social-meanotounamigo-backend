@@ -3,6 +3,7 @@ const express = require ('express');
 const {connectToDataBase} = require('./bd/mongodb');
 const cors = require ('cors');
 const app = express(); 
+const path = require('path');
 
 
 const PORT = process.env.PORT || 3009;
@@ -13,19 +14,15 @@ app.use(morgan("tiny"));
 ///Swagger
 const swaggerUi = require('swagger-ui-express');
 const YAML = require('yamljs');
-const path = require('path');
 const swaggerDocument = YAML.load(path.join(__dirname, '../docs/swagger.yaml'));
 
 //Ruta del swagger
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
-// Middleware para procesar JSON
-app.use(express.json());
 
 const { userRoute, postRoute, postImageRoute, tagRoute, commentRoute } = require('./routes'); 
 
-// Middleware para procesar JSON
 app.use(express.json());
-
+app.use('/uploads', express.static(path.join(__dirname, '../uploads')));
 app.use(cors());
 
 // Usa las rutas de post con el prefijo /post

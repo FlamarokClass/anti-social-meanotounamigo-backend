@@ -3,6 +3,7 @@ node_modules
 
 # Datos persistentes de Mongo
 mongo_data/
+/uploads
 
 # Archivos temporales o de sistema
 .DS_Store

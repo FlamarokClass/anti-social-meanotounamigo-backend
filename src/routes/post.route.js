@@ -1,7 +1,7 @@
 const { Router } = require ('express');
 const router = Router();
 const { postController } = require('../controllers');
-const { genericMiddleware, postTagMiddleware, postImageMiddleware } = require('../middlewares');
+const { genericMiddleware, postTagMiddleware, postImageMiddleware, upload, requireFile } = require('../middlewares');
 const { postSchema, postUpdateSchema, tagAssignmentSchema, imageAssigmentSchema } = require('../schemas');
 const { Post } = require('../mongoSchemas');
 const { checkCache, deleteCache } = require("../middlewares/redis.middleware")
