@@ -26,9 +26,9 @@ const createPostImage = async (req, res) => {
 };
 
 const updatePostImageById = async (req, res) => {
-  const image       = req.postImage;
-    const oldUrl      = image.url;
-    const newUrl      = `${req.protocol}://${req.get('host')}/uploads/${req.file.filename}`;
+  const image = req.postImage;
+    const oldUrl = image.url;
+    const newUrl = `${req.protocol}://${req.get('host')}/uploads/${req.file.filename}`;
 
     image.url = newUrl;
     await image.save();
