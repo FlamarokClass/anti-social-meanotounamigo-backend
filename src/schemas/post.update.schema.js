@@ -14,8 +14,9 @@ const updatePostSchema = Joi.object({
     }),
 
   imagenes: Joi.array().items(
-    Joi.string().regex(/^[0-9a-fA-F]{24}$/).message("ID de imagen inválido.")
+    Joi.string().uri().message("La imagen debe ser una URL válida.")
   ).optional(),
+
 
   etiquetas: Joi.array().items(
     Joi.string().regex(/^[0-9a-fA-F]{24}$/).message("ID de etiqueta inválido.")
