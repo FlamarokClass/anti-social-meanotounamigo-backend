@@ -1,5 +1,5 @@
 ## CONSIGNA
-e solicita el modelado y desarrollo de un sistema backend para una red social llamada **“UnaHur Anti-Social Net”**, inspirada en plataformas populares que permiten a los usuarios realizar publicaciones y recibir comentarios sobre las mismas.
+Se solicita el modelado y desarrollo de un sistema backend para una red social llamada **“UnaHur Anti-Social Net”**, inspirada en plataformas populares que permiten a los usuarios realizar publicaciones y recibir comentarios sobre las mismas.
 
 # Contexto del Proyecto
 
@@ -102,5 +102,6 @@ Si se desea cambiar el PORT o algun otro valor se puede modificar el archivo .en
 
 ## Modelo relacional del sistema 
 ![DER](./DER.PNG) 
+
 
 
